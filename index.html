@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#12372a">
+  <title>Incident Reporting Activity | Dispensing 1 Laboratory</title>
+  <style>
+    :root { --ink:#17231e; --muted:#5d6b64; --paper:#fffdf7; --green:#12372a; --green-2:#205c46; --lime:#c9ee63; --amber:#f0ae3d; --line:#d9ddd6; --shadow:0 20px 60px rgba(26,46,37,.13); --radius:22px; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-height:100vh; color:var(--ink); background:radial-gradient(circle at 15% 15%,rgba(201,238,99,.22),transparent 28rem),linear-gradient(135deg,#f7f3e9 0%,#eef4eb 100%); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    button,input,textarea,select { font:inherit; }
+    button { cursor:pointer; }
+    button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible { outline:3px solid var(--amber); outline-offset:2px; }
+    .topbar { position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:14px clamp(18px,4vw,56px); color:white; background:rgba(18,55,42,.96); backdrop-filter:blur(12px); box-shadow:0 8px 24px rgba(0,0,0,.12); }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .brand-mark { display:grid; place-items:center; width:42px; height:42px; border:2px solid rgba(255,255,255,.7); border-radius:12px; color:var(--green); background:var(--lime); font-size:1.3rem; font-weight:900; transform:rotate(-3deg); }
+    .brand strong { display:block; letter-spacing:.04em; }
+    .brand small { display:block; color:#cfddd6; }
+    .top-actions { display:flex; align-items:center; gap:10px; }
+    .version-badge { padding:8px 11px; border:1px solid rgba(255,255,255,.28); border-radius:999px; color:#e5eee9; font-size:.78rem; font-weight:850; letter-spacing:.06em; text-transform:uppercase; }
+    .music-btn { display:flex; align-items:center; gap:8px; min-width:118px; justify-content:center; padding:9px 13px; border:1px solid rgba(255,255,255,.32); border-radius:999px; color:white; background:rgba(255,255,255,.08); font-weight:850; transition:background .2s,transform .2s; }
+    .music-btn:hover { background:rgba(255,255,255,.16); transform:translateY(-1px); }
+    .music-btn.active { color:var(--green); background:var(--lime); border-color:var(--lime); }
+    .music-btn.active .music-icon { animation:musicPulse .65s ease-in-out infinite alternate; }
+    .music-icon { font-size:1.05rem; }
+    @keyframes musicPulse { to { transform:scale(1.24) rotate(-7deg); } }
+    main { max-width:1500px; margin:0 auto; padding:clamp(22px,4vw,54px); }
+    .hero { position:relative; display:grid; grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr); gap:30px; align-items:end; padding:clamp(28px,5vw,70px); overflow:hidden; border-radius:32px; color:white; background:var(--green); box-shadow:var(--shadow); }
+    .hero::after { content:"+"; position:absolute; right:4%; top:-29%; color:rgba(255,255,255,.055); font-size:28rem; font-weight:900; line-height:1; pointer-events:none; }
+    .eyebrow { margin:0 0 12px; color:var(--lime); font-weight:850; letter-spacing:.14em; text-transform:uppercase; }
+    h1 { margin:0; max-width:12ch; font-size:clamp(2.5rem,7vw,6.4rem); line-height:.92; letter-spacing:-.055em; }
+    .hero-copy { margin:25px 0 0; max-width:60ch; color:#d7e4de; font-size:clamp(1rem,1.5vw,1.2rem); line-height:1.65; }
+    .brief-card { position:relative; z-index:1; padding:24px; border-radius:20px; color:var(--ink); background:var(--paper); box-shadow:0 18px 30px rgba(0,0,0,.18); transform:rotate(1.25deg); }
+    .brief-card h2 { margin:0 0 14px; font-family:Georgia,serif; font-size:1.45rem; }
+    .brief-card ol { margin:0; padding-left:1.3rem; line-height:1.7; }
+    .brief-card b { color:var(--green-2); }
+    .section-head { margin:50px 0 18px; }
+    .section-head h2 { margin:0; font-size:clamp(1.8rem,4vw,3rem); letter-spacing:-.04em; }
+    .section-head p { margin:6px 0 0; color:var(--muted); }
+    .case-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .case-card { position:relative; display:flex; flex-direction:column; min-height:245px; padding:24px; overflow:hidden; border:1px solid var(--line); border-radius:var(--radius); background:rgba(255,253,247,.92); box-shadow:0 9px 24px rgba(31,54,43,.07); transition:transform .2s,box-shadow .2s,border-color .2s; }
+    .case-card:hover { transform:translateY(-5px); box-shadow:var(--shadow); border-color:#aab8ae; }
+    .case-card::before { content:attr(data-number); position:absolute; right:16px; top:2px; color:rgba(18,55,42,.07); font-size:7rem; font-weight:950; line-height:1; }
+    .group-label { position:relative; z-index:1; color:var(--green-2); font-size:.8rem; font-weight:900; letter-spacing:.11em; text-transform:uppercase; }
+    .case-card h3 { position:relative; z-index:1; margin:22px 0 10px; font-family:Georgia,serif; font-size:1.65rem; }
+    .case-card p { position:relative; z-index:1; margin:0; color:var(--muted); line-height:1.55; }
+    .card-foot { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:auto; padding-top:22px; }
+    .saved-state { color:var(--muted); font-size:.86rem; font-weight:800; }
+    .case-card.has-work .saved-state { color:var(--green-2); }
+    .open-btn,.primary,.secondary,.answer-btn,.pdf-btn { border:0; border-radius:12px; padding:12px 16px; font-weight:850; transition:transform .15s,filter .15s,background .15s; }
+    .open-btn,.primary,.answer-btn { color:white; background:var(--green); }
+    .pdf-btn { color:var(--green); background:var(--lime); }
+    .secondary { color:var(--green); background:#e2eae4; }
+    .open-btn:hover,.primary:hover,.answer-btn:hover,.pdf-btn:hover { filter:brightness(1.1); transform:translateY(-1px); }
+    .secondary:hover { background:#d3e0d6; }
+    dialog { width:min(1100px,calc(100vw - 28px)); max-height:calc(100vh - 28px); padding:0; overflow:hidden; border:0; border-radius:24px; background:var(--paper); box-shadow:0 32px 100px rgba(0,0,0,.42); }
+    dialog::backdrop { background:rgba(8,24,18,.72); backdrop-filter:blur(5px); }
+    .modal-shell { max-height:calc(100vh - 28px); overflow-y:auto; }
+    .modal-head { position:sticky; top:0; z-index:5; display:flex; justify-content:space-between; gap:16px; padding:22px 26px; color:white; background:var(--green); }
+    .modal-kicker { color:var(--lime); text-transform:uppercase; letter-spacing:.12em; font-size:.78rem; font-weight:900; }
+    .modal-head h2 { margin:4px 0 0; font-size:clamp(1.5rem,3vw,2.25rem); }
+    .close-btn { width:42px; height:42px; flex:0 0 auto; border:1px solid rgba(255,255,255,.35); border-radius:50%; color:white; background:transparent; font-size:1.4rem; }
+    .close-btn:hover { background:rgba(255,255,255,.12); }
+    .modal-body { padding:clamp(20px,4vw,42px); }
+    .student-info { display:grid; grid-template-columns:1fr .65fr 1fr; gap:13px; margin-bottom:18px; padding:18px; border:1px solid var(--line); border-radius:16px; background:#f3f6f2; }
+    .field.members { grid-column:1 / -1; }
+    .field label,.answer-field label { display:block; margin-bottom:7px; color:var(--green); font-size:.82rem; font-weight:900; letter-spacing:.04em; }
+    input,textarea,select { width:100%; border:1px solid #bcc8bf; border-radius:10px; color:var(--ink); background:white; padding:11px 12px; }
+    textarea { min-height:76px; resize:vertical; line-height:1.45; }
+    input[readonly] { color:var(--muted); background:#e8ede9; }
+    .scenario { padding:24px 28px 24px 34px; border-left:7px solid var(--amber); border-radius:4px 16px 16px 4px; background:#fff7e8; font-size:clamp(1.03rem,1.7vw,1.2rem); line-height:1.7; }
+    .scenario::before { content:"CASE"; display:block; margin-bottom:8px; color:#8b5c13; font-size:.76rem; font-weight:950; letter-spacing:.14em; }
+    .worksheet-title { margin:30px 0 6px; font-size:1.5rem; }
+    .worksheet-note { margin:0 0 18px; color:var(--muted); }
+    .questions { counter-reset:prompt; display:grid; gap:14px; }
+    .question { counter-increment:prompt; display:grid; grid-template-columns:36px 1fr; gap:12px; align-items:start; padding:17px; border:1px solid var(--line); border-radius:14px; background:white; }
+    .question::before { content:counter(prompt); display:grid; place-items:center; width:36px; height:36px; border-radius:50%; color:white; background:var(--green-2); font-weight:900; }
+    .question h4 { margin:2px 0 4px; font-size:1rem; }
+    .hint { margin:0 0 11px; color:var(--muted); font-size:.9rem; }
+    .split-fields { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .answer-field + .answer-field { margin-top:9px; }
+    .answer-zone { margin-top:24px; }
+    .answer-btn { width:100%; padding:15px; }
+    .model-answers { display:none; margin-top:16px; animation:rise .35s ease; }
+    .model-answers.visible { display:block; }
+    @keyframes rise { from { opacity:0; transform:translateY(8px); } }
+    .answer-banner { padding:16px 19px; border-radius:14px; color:white; background:var(--green-2); }
+    .answer-banner h3 { margin:0; }
+    .answer-banner p { margin:4px 0 0; color:#dceae2; font-size:.9rem; }
+    .answer-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:12px; }
+    .answer-card { padding:17px; border:1px solid #cbd8cf; border-radius:14px; background:#f0f6f1; }
+    .answer-card h4 { margin:0 0 7px; color:var(--green); font-size:.84rem; letter-spacing:.05em; text-transform:uppercase; }
+    .answer-card p,.answer-card ul { margin:0; line-height:1.55; }
+    .answer-card ul { padding-left:1.1rem; }
+    .wide { grid-column:1 / -1; }
+    .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:24px; flex-wrap:wrap; }
+    .pdf-help { width:100%; margin:0 0 -10px; color:var(--muted); text-align:right; font-size:.8rem; }
+    footer { margin:46px 0 10px; padding:20px; text-align:center; color:var(--muted); }
+    .toast { position:fixed; left:50%; bottom:24px; z-index:50; transform:translate(-50%,120px); padding:13px 18px; border-radius:12px; color:white; background:#17231e; box-shadow:var(--shadow); opacity:0; transition:.28s; }
+    .toast.show { transform:translate(-50%,0); opacity:1; }
+    @media (max-width:980px) { .hero { grid-template-columns:1fr; } .brief-card { transform:none; } .case-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (max-width:680px) { .topbar { position:static; align-items:flex-start; } .version-badge { display:none; } .music-btn { min-width:104px; padding:8px 11px; } main { padding:16px; } .hero { padding:30px 22px; border-radius:22px; } .case-grid,.answer-grid,.student-info,.split-fields { grid-template-columns:1fr; } .field.members,.wide { grid-column:auto; } .modal-head,.modal-body { padding:18px; } .modal-actions>button { width:100%; } .pdf-help { text-align:center; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark" aria-hidden="true">Rx</div><div><strong>INCIDENT ROOM</strong><small>Incident Reporting Activity</small></div></div>
+    <div class="top-actions"><div class="version-badge" id="versionBadge">Student version</div><button class="music-btn" id="musicBtn" type="button" aria-pressed="false"><span class="music-icon" aria-hidden="true">♫</span><span id="musicLabel">Music Off</span></button></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div><p class="eyebrow">Dispensing 1 Laboratory</p><h1>Facts first. Blame never.</h1><p class="hero-copy">Each group receives a new pharmacy incident. Complete the short worksheet using the incident classifications and response process discussed in class.</p></div>
+      <aside class="brief-card"><h2>Activity instructions</h2><ol><li>Open the case assigned to your group.</li><li>Enter your group information.</li><li>Answer the <b>five worksheet questions</b>.</li><li>Download the completed worksheet as a PDF.</li></ol></aside>
+    </section>
+    <section aria-labelledby="casesTitle"><div class="section-head"><h2 id="casesTitle">Group cases</h2><p>Your entries save automatically on this device.</p></div><div class="case-grid" id="caseGrid"></div></section>
+    <footer>Dispensing 1 Laboratory · Ricardo Jr. Arellano, 2026</footer>
+  </main>
+  <dialog id="caseDialog" aria-labelledby="dialogTitle"><div class="modal-shell"><header class="modal-head"><div><div class="modal-kicker" id="dialogKicker"></div><h2 id="dialogTitle"></h2></div><button class="close-btn" id="closeDialog" type="button" aria-label="Close case">×</button></header><div class="modal-body">
+    <section class="student-info" aria-label="Group information"><div class="field"><label for="sectionInput">Section</label><input id="sectionInput" data-field="section" autocomplete="off"></div><div class="field"><label for="groupInput">Group number</label><input id="groupInput" data-field="group" readonly></div><div class="field"><label for="dateInput">Date completed</label><input id="dateInput" data-field="date" type="date"></div><div class="field members"><label for="membersInput">Names of members</label><textarea id="membersInput" data-field="members" placeholder="Enter each member’s name"></textarea></div></section>
+    <div class="scenario" id="scenarioText"></div><h3 class="worksheet-title">Group worksheet</h3><p class="worksheet-note">Use short, clear answers. Reasonable answers supported by the case may be accepted.</p>
+    <section class="questions">
+      <article class="question"><div><h4>Classify the incident</h4><p class="hint">Choose one classification from the lecture.</p><select data-field="classification"><option value="">Select an answer</option><option>Unexpected event</option><option>Near miss</option><option>Adverse event</option><option>Awareness event</option></select></div></article>
+      <article class="question"><div><h4>Identify the first response priority</h4><p class="hint">Choose the first step that applies to this case.</p><select data-field="priority"><option value="">Select an answer</option><option>CARE</option><option>CONTROL</option><option>NOTIFY</option><option>DOCUMENT</option><option>LEARN</option></select></div></article>
+      <article class="question"><div><h4>Write two facts that should appear in the report</h4><p class="hint">Facts may include what happened, the time, location, person, item, or observed result.</p><div class="split-fields"><input data-field="fact1" placeholder="Fact 1"><input data-field="fact2" placeholder="Fact 2"></div></div></article>
+      <article class="question"><div><h4>Identify one contributing condition</h4><p class="hint">What condition may have helped the incident happen?</p><textarea data-field="condition" placeholder="One contributing condition"></textarea></div></article>
+      <article class="question"><div><h4>Prevent the incident from happening again</h4><p class="hint">Give one preventive action and one way to check if it works.</p><div class="answer-field"><label>Preventive action</label><textarea data-field="prevention" placeholder="What should be changed?"></textarea></div><div class="answer-field"><label>How to check</label><textarea data-field="check" placeholder="What evidence will show that it works?"></textarea></div></div></article>
+    </section>
+    <div class="modal-actions"><p class="pdf-help">The PDF includes the case, group information, and your five responses.</p><button class="secondary" id="clearBtn" type="button">Clear this worksheet</button><button class="pdf-btn" id="pdfBtn" type="button">Download worksheet PDF</button><button class="primary" id="nextBtn" type="button">Next group</button></div>
+  </div></div></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    const MODE = "student";
+    const CASES = [
+      { id:1, title:"The Cleaning Bottle", teaser:"An incident occurs during cleanup.", scenario:"At 9:15 AM, a pharmacy student opens a bottle of cleaning solution beside the dispensing counter. The liquid splashes into the student’s right eye. The student reports burning and tearing." },
+      { id:2, title:"The Label Entry", teaser:"A label is checked before a medicine leaves the pharmacy.", scenario:"A prescription for cephalexin suspension says to take 5 mL four times daily. During data entry, the label directions are typed as 15 mL four times daily. The pharmacist notices the difference before the label is printed and before the medicine is supplied." },
+      { id:3, title:"The Follow-Up Call", teaser:"A patient calls three days after starting treatment.", scenario:"A patient calls three days after starting ferrous sulfate tablets. The patient reports nausea and stomach pain after each dose and says the tablets are taken before breakfast. The dispensed medicine and directions match the prescription." },
+      { id:4, title:"The Empty Dispenser", teaser:"Staff notice a problem before the busy period.", scenario:"At 11:00 AM, a pharmacy assistant notices that the hand-sanitizer dispenser beside the dispensing counter is empty. The busy lunch period is about to begin. No contamination or illness has been reported." },
+      { id:5, title:"The Delivery Shelf", teaser:"A carton moves while supplies are being stored.", scenario:"At 2:40 PM, a small medicine carton falls from an upper storage shelf and hits a pharmacy assistant’s shoulder. The assistant is awake and says, “My shoulder hurts.” The carton had been placed near the edge of the shelf." },
+      { id:6, title:"The Discarded Label", teaser:"Patient information is found in an improper place.", scenario:"At closing time, a pharmacy student sees a used prescription label in an open trash bin beside the waiting area. The label shows a patient’s full name, address, and medicine. No one reports taking a photograph or removing the label." }
+    ];
+    const ANSWER_KEY = {};
+    const storageKey=MODE==="student"?"incident-report-student-v1":"incident-report-answer-v1";
+    const saved=JSON.parse(localStorage.getItem(storageKey)||"{}");
+    const dialog=document.querySelector("#caseDialog"), grid=document.querySelector("#caseGrid");
+    let activeId=1;
+    function today(){ return new Date().toISOString().slice(0,10); }
+    function responseFor(id){ if(!saved[id]) saved[id]={section:"",group:String(id),date:today(),members:"",classification:"",priority:"",fact1:"",fact2:"",condition:"",prevention:"",check:""}; return saved[id]; }
+    function save(){ localStorage.setItem(storageKey,JSON.stringify(saved)); }
+    function hasWork(id){ const r=responseFor(id); return [r.section,r.members,r.classification,r.priority,r.fact1,r.fact2,r.condition,r.prevention,r.check].some(v=>String(v||"").trim()); }
+    function escapeHtml(value){ return String(value).replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c])); }
+    function renderGrid(){ grid.innerHTML=CASES.map(c=>`<article class="case-card ${hasWork(c.id)?"has-work":""}" data-number="0${c.id}"><span class="group-label">Group ${c.id}</span><h3>${c.title}</h3><p>${c.teaser}</p><div class="card-foot"><span class="saved-state">${hasWork(c.id)?"Responses saved":"Not started"}</span><button class="open-btn" data-open="${c.id}" type="button">Open case</button></div></article>`).join(""); grid.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>openCase(Number(b.dataset.open)))); }
+    function openCase(id){ activeId=id; const c=CASES.find(item=>item.id===id),r=responseFor(id); document.querySelector("#dialogKicker").textContent=`Group ${id}`; document.querySelector("#dialogTitle").textContent=c.title; document.querySelector("#scenarioText").textContent=c.scenario; dialog.querySelectorAll("[data-field]").forEach(field=>{field.value=r[field.dataset.field]??"";}); dialog.showModal(); document.querySelector(".modal-shell").scrollTop=0; }
+    function saveFields(){ const r=responseFor(activeId); dialog.querySelectorAll("[data-field]").forEach(field=>{r[field.dataset.field]=field.value;}); save(); renderGrid(); }
+    function ascii(value){ return String(value||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,"-").replace(/[^\x20-\x7E\n]/g,""); }
+    function wrap(value,max=86){ const output=[]; ascii(value).split(/\n+/).forEach(paragraph=>{ const words=paragraph.trim().split(/\s+/).filter(Boolean); if(!words.length){output.push("");return;} let line=""; words.forEach(word=>{if((line+" "+word).trim().length>max){output.push(line);line=word;}else line=(line+" "+word).trim();}); if(line)output.push(line); }); return output; }
+    function pdfEscape(value){ return value.replace(/\\/g,"\\\\").replace(/\(/g,"\\(").replace(/\)/g,"\\)"); }
+    function makePdfPages(lines){ const pages=[]; let page=[],y=800; lines.forEach(item=>{const height=item.gap||15;if(y<55){pages.push(page);page=[];y=800;}page.push({...item,y});y-=height;});if(page.length)pages.push(page);return pages; }
+    function buildPdfBytes(pages){ const objects=[];objects[1]="<< /Type /Catalog /Pages 2 0 R >>";objects[3]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>";const kids=[];pages.forEach((page,index)=>{const pageObj=4+index*2,contentObj=pageObj+1;kids.push(`${pageObj} 0 R`);const stream=page.map(line=>`BT /F1 ${line.size||10} Tf 50 ${line.y} Td (${pdfEscape(line.text)}) Tj ET`).join("\n");objects[pageObj]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents ${contentObj} 0 R >>`;objects[contentObj]=`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`;});objects[2]=`<< /Type /Pages /Kids [${kids.join(" ")}] /Count ${pages.length} >>`;let pdf="%PDF-1.4\n";const offsets=[0];for(let i=1;i<objects.length;i++){offsets[i]=pdf.length;pdf+=`${i} 0 obj\n${objects[i]}\nendobj\n`;}const xref=pdf.length;pdf+=`xref\n0 ${objects.length}\n0000000000 65535 f \n`;for(let i=1;i<objects.length;i++)pdf+=`${String(offsets[i]).padStart(10,"0")} 00000 n \n`;pdf+=`trailer\n<< /Size ${objects.length} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;return new Uint8Array([...pdf].map(ch=>ch.charCodeAt(0))); }
+    function addWrapped(lines,label,value){ lines.push({text:label,size:11,gap:17});wrap(value||"No response entered").forEach(text=>lines.push({text:`  ${text}`,size:10,gap:14}));lines.push({text:"",gap:8}); }
+    function downloadPdf(){ saveFields();const c=CASES.find(item=>item.id===activeId),r=responseFor(activeId),lines=[];lines.push({text:"INCIDENT REPORTING ACTIVITY",size:16,gap:24},{text:"Dispensing 1 Laboratory",size:11,gap:20},{text:`Section: ${ascii(r.section)||"________________"}`,size:10,gap:16},{text:`Group number: ${activeId}`,size:10,gap:16},{text:`Date completed: ${ascii(r.date)||"________________"}`,size:10,gap:16});addWrapped(lines,"Names of members:",r.members);addWrapped(lines,`CASE - Group ${activeId}: ${c.title}`,c.scenario);addWrapped(lines,"1. Incident classification",r.classification);addWrapped(lines,"2. First response priority",r.priority);addWrapped(lines,"3. Fact 1",r.fact1);addWrapped(lines,"   Fact 2",r.fact2);addWrapped(lines,"4. One contributing condition",r.condition);addWrapped(lines,"5. Preventive action",r.prevention);addWrapped(lines,"   How to check",r.check);lines.push({text:"Dispensing 1 Laboratory - Ricardo Jr. Arellano, 2026",size:9,gap:14});const blob=new Blob([buildPdfBytes(makePdfPages(lines))],{type:"application/pdf"}),url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download=`Incident_Reporting_Group_${activeId}.pdf`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast("Worksheet PDF downloaded"); }
+    function toast(message){const el=document.querySelector("#toast");el.textContent=message;el.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove("show"),2200);}
+    let audioContext=null,musicTimer=null,nextBeat=0,beatIndex=0,musicOn=false;
+    const melody=[261.63,329.63,392,329.63,220,261.63,329.63,261.63,174.61,220,261.63,220,196,246.94,293.66,246.94];
+    const bass=[130.81,110,87.31,98];
+    function playTone(frequency,time,duration,type,volume){const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();oscillator.type=type;oscillator.frequency.setValueAtTime(frequency,time);gain.gain.setValueAtTime(.0001,time);gain.gain.exponentialRampToValueAtTime(volume,time+.018);gain.gain.exponentialRampToValueAtTime(.0001,time+duration);oscillator.connect(gain).connect(audioContext.destination);oscillator.start(time);oscillator.stop(time+duration+.03);}
+    function playBeat(step,time){playTone(melody[step%melody.length],time,.19,"triangle",.028);if(step%4===0)playTone(bass[Math.floor(step/4)%bass.length],time,.38,"sine",.035);if(step%2===0){const kick=audioContext.createOscillator(),gain=audioContext.createGain();kick.frequency.setValueAtTime(82,time);kick.frequency.exponentialRampToValueAtTime(45,time+.1);gain.gain.setValueAtTime(.035,time);gain.gain.exponentialRampToValueAtTime(.0001,time+.12);kick.connect(gain).connect(audioContext.destination);kick.start(time);kick.stop(time+.13);}}
+    function scheduleMusic(){if(!musicOn||!audioContext)return;const stepLength=60/116/2;while(nextBeat<audioContext.currentTime+.25){playBeat(beatIndex,nextBeat);nextBeat+=stepLength;beatIndex=(beatIndex+1)%16;}}
+    function updateMusicButton(){const button=document.querySelector("#musicBtn");button.classList.toggle("active",musicOn);button.setAttribute("aria-pressed",String(musicOn));document.querySelector("#musicLabel").textContent=musicOn?"Music On":"Music Off";}
+    async function startMusic(){const AudioEngine=window.AudioContext||window.webkitAudioContext;if(!AudioEngine){toast("Background music is not supported by this browser");return;}if(!audioContext)audioContext=new AudioEngine();await audioContext.resume();musicOn=true;beatIndex=0;nextBeat=audioContext.currentTime+.05;scheduleMusic();musicTimer=setInterval(scheduleMusic,100);updateMusicButton();}
+    function stopMusic(){musicOn=false;clearInterval(musicTimer);musicTimer=null;updateMusicButton();}
+    document.querySelector("#musicBtn").addEventListener("click",()=>{if(musicOn)stopMusic();else startMusic();});
+    dialog.addEventListener("input",saveFields);dialog.addEventListener("change",saveFields);document.querySelector("#closeDialog").addEventListener("click",()=>{saveFields();dialog.close();});dialog.addEventListener("click",e=>{if(e.target===dialog){saveFields();dialog.close();}});
+    document.querySelector("#pdfBtn").addEventListener("click",downloadPdf);document.querySelector("#clearBtn").addEventListener("click",()=>{if(!confirm("Clear all entries for this group?"))return;saved[activeId]={section:"",group:String(activeId),date:today(),members:"",classification:"",priority:"",fact1:"",fact2:"",condition:"",prevention:"",check:""};save();openCase(activeId);renderGrid();toast("Worksheet cleared");});document.querySelector("#nextBtn").addEventListener("click",()=>{saveFields();dialog.close();openCase(activeId===6?1:activeId+1);});
+    document.querySelector("#versionBadge").textContent="Student version";
+    renderGrid();
+  </script>
+</body>
+</html>
